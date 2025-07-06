@@ -1,7 +1,7 @@
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home/Home";
 import About from "./Components/About/About";
-import { useState } from "react";
+import {useState } from "react";
 import LoadingScreen from "./Components/LoadingScreen";
 import Experience from "./Components/Experience/Experience";
 import Projects from "./Components/Projects/Projects";
