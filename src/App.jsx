@@ -21,7 +21,7 @@ function App() {
       >
         <Navbar />
         <Home />
-        <About />
+        <About className="bg-cyan-950" />
         <Experience />
         <Projects />
         <Testimonail />

@@ -25,13 +25,13 @@ export default function ProjectsSection() {
             {
               title: "Quote Generator",
               desc: "Thoughtful quote generator using React, Tailwind CSS, and Ninja API. Includes copy, delete, and edit functionality with responsive design.",
-              live: "https://quote-generator-laiba.netlify.app",
-              code: "https://github.com/qazilaiba08/quote-generator"
+              live: "https://nexuim-laiba-assign1.vercel.app/",
+              code: "https://github.com/qazilaiba08/nexuim-laiba-assign1"
             },
             {
               title: "Daily Goals Tracker",
               desc: "React app to track daily goals with add, delete, complete functionality and a motivational quote fetched from an API.",
-              live: "https://daily-goals-laiba.netlify.app",
+              live: "https://daily-goals-tracker-iota.vercel.app/",
               code: "https://github.com/qazilaiba08/daily-goals-tracker"
             }
           ].map((project, index) => (
