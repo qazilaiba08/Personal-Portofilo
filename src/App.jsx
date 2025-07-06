@@ -7,6 +7,7 @@ import Experience from "./Components/Experience/Experience";
 import Projects from "./Components/Projects/Projects";
 import Contact from "./Components/Contact/Contact";
 import Footer from "./Components/Footer/Footer";
+import Testimonail from "./pages/Testimonail";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +24,7 @@ function App() {
       <About />
       <Experience />
       <Projects />
+      <Testimonail />
       <Contact />
       <Footer />
        </div>

@@ -1,55 +1,95 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 const Contact = () => {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
 
-    return (
-      <div id="Contact" className="p-10 md:p-24 text-white bg-[#0c0e19]">
-        <h1 className="text-2xl md:text-4xl font-bold text-center">Contact Me</h1>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-10">
-          <div className="text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-semibold">Let{"'"}s Connect! 🤝</h2>
-            <p className="text-sm md:text-md mt-3">
-              Have a project in mind? Feel free to drop me a message!
-            </p>
-            <p className="mt-2">📧 Email: laibaqazi721@email.com</p>
-            <p>📍 Location: Karachi, Pakistan</p>
-          </div>
-          <form className="bg-slate-900 bg-opacity-50 p-6 rounded-lg shadow-md w-full max-w-lg">
-            <div className="mb-4">
-              <label className="block text-white text-sm mb-2">Name</label>
-              <input 
-                type="text" 
-                placeholder="Enter your name" 
-                className="w-full p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-600"
-              />
-            </div>
   
-            <div className="mb-4">
-              <label className="block text-white text-sm mb-2">Email</label>
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="w-full p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-600"
-              />
-            </div>
-  
-            <div className="mb-4">
-              <label className="block text-white text-sm mb-2">Message</label>
-              <textarea 
-                rows="4" 
-                placeholder="Write your message..." 
-                className="w-full p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-600"
-              ></textarea>
-            </div>
-  
-            <button className="w-full bg-sky-600 py-3 rounded-lg font-semibold text-white hover:bg-sky-700 transition-all">
-              Send Message
-            </button>
-          </form>
-  
-        </div>
-      </div>
-    );
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
-  
-  export default Contact;
-  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Sending...");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("Message sent! Thank you.");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Failed to send. Please try again.");
+      }
+    } catch {
+      setStatus("Failed to send. Please try again.");
+    }
+  };
+
+  return (
+    <section id="contact" className="bg-gradient-to-br from-black via-gray-900 to-black text-white py-20 px-4">
+      <div className="max-w-3xl mx-auto text-center space-y-8">
+        <motion.h2
+          className="text-3xl md:text-5xl font-bold text-teal-400"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <span>
+            Get in Touch —{" "}
+            <span className="text-pink-500">Lets Connect!</span>
+          </span>
+        </motion.h2>
+
+        <p className="text-gray-300 text-lg md:text-xl">
+          Have a project in mind or just want to say hi? I am always open to new
+          opportunities and collaborations.
+        </p>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            className="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            className="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="4"
+            value={form.message}
+            onChange={handleChange}
+            required
+            className="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          ></textarea>
+          <Button
+            type="submit"
+            className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 mt-4"
+          >
+            Send Message
+          </Button>
+        </form>
+        {status && <div className="text-teal-400 mt-2">{status}</div>}
+      </div>
+    </section>
+  );
+};
+
+export default Contact;

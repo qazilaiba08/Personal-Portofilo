@@ -1,50 +1,45 @@
- /* eslint-disable react/prop-types*/
-// import bannerImg from '../../assets/banner.jpeg'
+import { motion } from "framer-motion";
+import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import PropTypes from "prop-types";
 
-// const ProjectCards = ({title,main}) => {
-//   return (
-//     <div className="p-3 md:p-6 flex flex-col w-80 bg-[#0c0e19] shadow-xl 
-//     shadow-slate-900 rounded-2xl">
-//         <img src={bannerImg} alt=""
-//         className='p-4' />
-//         <h3 className='p-4 text-xl md:text-2xl font-bold leading normalk'>
-//             {title}</h3>
-//             <p className='px-4 text-sm md:text-md leading-tight py-2'>{main}</p>
-//             <div className='mt-2 pt-2 md:p-4 flex gap-2 md:gap-4'>
-//               <button className='md:mt-10 text-white py-2 px-3 text-sm md:text-lg 
-//               md:py-2 md:px-4 hover:opacity-85 duration-300 hover:scale-105 font-semibold
-//               rounded-3xl bg-sky-950'>Demo</button>
-//                  <button className='md:mt-10 text-white py-2 px-3 text-sm md:text-lg 
-//               md:py-2 md:px-4 hover:opacity-85 duration-300 hover:scale-105 font-semibold
-//               rounded-3xl bg-sky-950'>Source Code</button>
-//             </div>
-//     </div>
-//   )
-// }
-
-// export default ProjectCards 
-import bannerImg from '../../assets/banner.jpeg'
-
-const ProjectCards = ({ title, main }) => {
+export default function ProjectCard({ project }) {
   return (
-    <div className="p-4 md:p-6 flex flex-col max-w-sm bg-[#0c0e19] shadow-lg shadow-slate-900 rounded-2xl">
-      <img 
-        src={bannerImg} 
-        alt={title} 
-        className="w-full h-40 object-cover rounded-lg"
-      />
-      <h3 className="p-4 text-xl md:text-2xl font-bold">{title}</h3>
-      <p className="px-4 text-sm md:text-md leading-tight py-2">{main}</p>
-      <div className="mt-4 flex justify-between">
-        <button className="text-white py-2 px-3 text-sm md:text-lg bg-sky-950 hover:opacity-85 duration-300 hover:scale-105 font-semibold rounded-3xl">
-          Demo
-        </button>
-        <button className="text-white py-2 px-3 text-sm md:text-lg bg-sky-950 hover:opacity-85 duration-300 hover:scale-105 font-semibold rounded-3xl">
-          Source Code
-        </button>
+    <motion.div
+      className="bg-black bg-opacity-40 p-6 rounded-lg shadow hover:scale-105 hover:bg-opacity-60 transition-all duration-300 flex flex-col justify-between"
+      whileHover={{ scale: 1.05 }}
+    >
+      <h3 className="text-xl md:text-2xl font-semibold text-teal-400 mb-4">
+        {project.title}
+      </h3>
+      <p className="text-gray-300 mb-6">{project.desc}</p>
+
+      <div className="flex gap-4">
+        <a
+          href={project.live}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-pink-400 hover:text-pink-500 flex items-center gap-2"
+        >
+          Live Demo <FaExternalLinkAlt />
+        </a>
+        <a
+          href={project.code}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-teal-400 hover:text-teal-500 flex items-center gap-2"
+        >
+          Code <FaGithub />
+        </a>
       </div>
-    </div>
-  )
+    </motion.div>
+  );
 }
 
-export default ProjectCards;
+ProjectCard.propTypes = {
+  project: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    live: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired,
+  }).isRequired,
+};
